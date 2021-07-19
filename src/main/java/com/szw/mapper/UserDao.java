@@ -2,12 +2,10 @@ package com.szw.mapper;
 
 import com.szw.entity.User;
 import com.szw.entity.UserExample;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
-@Mapper
+import org.apache.ibatis.annotations.Param;
+
 public interface UserDao {
     long countByExample(UserExample example);
 

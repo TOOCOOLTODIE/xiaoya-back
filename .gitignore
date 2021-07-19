@@ -1,12 +1,2 @@
 *.idea
 *.class
-**/target/**
-*.iml
-*.gitignore
-/.project
-/.classpath
-/.settings/org.eclipse.core.resources.prefs
-/.settings/**
-/lsp/**
-/.factorypath
-/.vscode/launch.json
