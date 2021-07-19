@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szw.mapper.BlogDao">
+    <resultMap id="BaseResultMap" type="com.szw.entity.Blog">
+        <id column="blog_id" jdbcType="INTEGER" property="id"/>
+        <result column="blog_title" jdbcType="VARCHAR" property="title"/>
+        <result column="blog_tags" jdbcType="VARCHAR" property="tags"/>
+        <result column="blog_user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="blog_public_time" jdbcType="TIMESTAMP" property="publicTime"/>
+        <result column="blog_update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.szw.entity.Blog">
+        <result column="blog_content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <update id="updateByPrimaryKey" parameterType="com.szw.entity.Blog">
+    update blog
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      public_time = #{publicTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="loadBlogsByUserId" parameterType="map" resultType="com.szw.entity.Blog">
+        select
+        blog.id as id,
+        blog.title as title,
+        blog.content as content,
+        blog.tags as tags,
+        blog.user_id as userId,
+        blog.public_time as publicTime,
+        blog.update_time as updateTime
+        from blog blog
+        <where>
+            blog.user_id = #{userId}
+            <if test="keywords !=null and keywords !=''">
+                and blog.title like concat('%',#{keywords},'%') or blog.tags like concat('%',#{keywords},'%')
+            </if>
+        </where>
+        <if test="start !=null and size !=null ">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="loadBlogsByUserIdCount" parameterType="map" resultType="Long">
+        select count(*)
+        from blog blog
+        <where>
+            blog.user_id = #{userId}
+            <if test="keywords !=null and keywords !=''">
+                and blog.title like concat('%',#{keywords},'%') or blog.tags like concat('%',#{keywords},'%')
+            </if>
+        </where>
+    </select>
+    <insert id="insertSelectiveBlog" parameterType="map">
+        INSERT INTO blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title !=null and title != ''">
+                title,
+            </if>
+            <if test="content !=null">
+                content,
+            </if>
+            <if test="tags !=null and tags != ''">
+                tags,
+            </if>
+            <if test="userId !=null and userId != ''">
+                user_id ,
+            </if>
+            <if test="publicTime !=null">
+                public_time ,
+            </if>
+            <if test="updateTime !=null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title !=null and title != ''">
+                #{title},
+            </if>
+            <if test="content !=null">
+                #{content},
+            </if>
+            <if test="tags !=null and tags != ''">
+                #{tags},
+            </if>
+            <if test="userId !=null and userId != ''">
+                #{userId},
+            </if>
+            <if test="publicTime !=null">
+                #{publicTime},
+            </if>
+            <if test="updateTime !=null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <update id="updateByPrimaryKeySelective" parameterType="com.szw.entity.Blog">
+        update blog
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="publicTime != null">
+                public_time = #{publicTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
