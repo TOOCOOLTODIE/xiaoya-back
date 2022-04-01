@@ -1,2 +1,10 @@
 *.idea
 *.class
+/target/classes/**
+/.settings/**
+/lsp/**
+/.project
+/target/**
+*.iml
+*.classpath
+*.factorypath
