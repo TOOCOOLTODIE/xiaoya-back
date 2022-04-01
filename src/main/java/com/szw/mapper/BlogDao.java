@@ -2,10 +2,13 @@ package com.szw.mapper;
 
 import com.szw.entity.Blog;
 import com.szw.entity.BlogExample;
-import java.util.List;
-import java.util.Map;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
+@Mapper
 public interface BlogDao {
     long countByExample(BlogExample example);
 
