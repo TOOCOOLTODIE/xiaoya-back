@@ -10,9 +10,6 @@ import java.util.Date;
 
 @Data
 public class Model implements Serializable{
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private int id;
     private String name;
