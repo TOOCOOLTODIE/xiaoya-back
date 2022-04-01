@@ -10,13 +10,13 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication
 @MapperScan("com.szw.mapper")
 @EnableCaching
-public class StaffApplication extends SpringBootServletInitializer {
+public class XiaoYaApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StaffApplication.class, args);
+		SpringApplication.run(XiaoYaApplication.class, args);
 	}
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(StaffApplication.class);
+		return application.sources(XiaoYaApplication.class);
 	}
 }

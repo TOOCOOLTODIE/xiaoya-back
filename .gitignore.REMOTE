@@ -1,0 +1,14 @@
+*.idea
+*.class
+*.iml
+*.gitignore
+/.project
+/.classpath
+/.settings/org.eclipse.core.resources.prefs
+/.settings/**
+/lsp/**
+/.project
+/target/**
+*.iml
+*.classpath
+/.vscode/launch.json
