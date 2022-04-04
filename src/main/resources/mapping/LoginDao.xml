@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoya.mapper.LoginDao">
+  <resultMap id="BaseResultMap" type="com.xiaoya.domain.login.entity.Login">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+
+  <select id="getLoginByNameAndPassword" resultType="com.xiaoya.domain.login.entity.Login" parameterType="com.xiaoya.domain.login.entity.Login">
+    SELECT u.id,u.name FROM user u WHERE u.name=#{login.name} and u.password=#{login.password}
+  </select>
+</mapper>
